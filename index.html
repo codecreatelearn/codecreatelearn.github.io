@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+window.contextInfo = {"files":[],"materials":[],"crafts":[]};
+// 处理锚点链接跳转（srcDoc iframe 中锚点链接默认行为不正确）
+document.addEventListener('click', function(e) {
+  var anchor = e.target.closest('a');
+  if (anchor) {
+    var href = anchor.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      e.preventDefault();
+      var targetId = href.slice(1);
+      var target = document.getElementById(targetId);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }
+});
+</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Coding for Kids. AI for Everyone. — Anusha Prahalad</title>
+<meta name="description" content="Fun, structured coding programmes for children ages 8–12 and AI classes for adults & senior citizens, by Anusha Prahalad. WhatsApp 96009 15016." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#14235a;
+  --navy-2:#1b2b6b;
+  --green:#2fa84f;
+  --green-2:#57b947;
+  --orange:#f07c2b;
+  --yellow:#ffcf33;
+  --purple:#6a3fa0;
+  --blue:#1f6fd0;
+  --ink:#16224a;
+  --muted:#5b678c;
+  --line:#e5e9f4;
+  --tint-blue:#eef4ff;
+  --tint-green:#eefaf0;
+  --tint-orange:#fff4ea;
+  --tint-purple:#f5effd;
+  --tint-yellow:#fffaeb;
+  --radius:22px;
+  --shadow-sm:0 4px 14px rgba(20,35,90,.07);
+  --shadow-md:0 14px 34px rgba(20,35,90,.10);
+  --shadow-lg:0 26px 60px rgba(20,35,90,.16);
+  --maxw:1160px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:'Nunito',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  color:var(--ink);
+  background:#fff;
+  line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4,.display{font-family:'Baloo 2','Nunito',sans-serif;line-height:1.08;margin:0;letter-spacing:-.01em}
+h2{font-size:clamp(1.9rem,3.6vw,2.85rem);font-weight:800}
+h3{font-size:clamp(1.25rem,2vw,1.6rem);font-weight:700}
+p{margin:0}
+.wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 22px}
+section{position:relative}
+section[id]{scroll-margin-top:92px}
+.sec{padding:clamp(56px,7vw,96px) 0}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-weight:800;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--navy-2);background:var(--tint-blue);border:1px solid #dbe6ff;
+  padding:7px 14px;border-radius:999px;
+}
+.sec-head{max-width:760px;margin:0 auto 42px;text-align:center}
+.sec-head p{margin-top:14px;color:var(--muted);font-size:1.06rem}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  font-family:'Nunito',sans-serif;font-weight:800;font-size:1rem;
+  padding:14px 24px;border-radius:999px;border:0;cursor:pointer;
+  transition:transform .18s ease,box-shadow .18s ease,background .18s ease;
+  will-change:transform;
+}
+.btn:hover{transform:translateY(-3px)}
+.btn-green{background:linear-gradient(135deg,var(--green-2),var(--green));color:#fff;box-shadow:0 10px 24px rgba(47,168,79,.32)}
+.btn-green:hover{box-shadow:0 16px 32px rgba(47,168,79,.4)}
+.btn-navy{background:var(--navy);color:#fff;box-shadow:0 10px 24px rgba(20,35,90,.26)}
+.btn-outline{background:#fff;color:var(--navy);border:2px solid #d9e1f5}
+.btn-outline:hover{border-color:var(--navy)}
+.card{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow-sm);transition:transform .22s ease,box-shadow .22s ease;
+}
+.card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md)}
+.pill{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 15px;font-weight:700;font-size:.9rem;color:var(--navy-2);box-shadow:var(--shadow-sm)}
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:600;color:#31406b}
+.check .tick{
+  flex:0 0 22px;width:22px;height:22px;border-radius:50%;
+  background:var(--tint-green);color:var(--green);display:grid;place-items:center;
+  font-size:.78rem;font-weight:900;margin-top:3px;border:1px solid #cdeed6;
+}
+/* ---------- NAV ---------- */
+.nav{
+  position:sticky;top:0;z-index:80;background:rgba(255,255,255,.92);
+  backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:box-shadow .25s,border-color .25s;
+}
+.nav.scrolled{box-shadow:0 8px 26px rgba(20,35,90,.09);border-color:var(--line)}
+.nav-inner{display:flex;align-items:center;gap:18px;height:76px}
+.brand{display:flex;align-items:center;gap:11px;font-family:'Baloo 2',sans-serif;font-weight:800;color:var(--navy);font-size:1.12rem;flex:0 0 auto}
+.brand .logo{
+  width:42px;height:42px;border-radius:13px;display:grid;place-items:center;font-size:1.25rem;
+  background:linear-gradient(140deg,var(--yellow),var(--orange));box-shadow:0 8px 18px rgba(240,124,43,.32);
+}
+.brand small{display:block;font-family:'Nunito',sans-serif;font-weight:700;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);line-height:1}
+.nav-links{display:flex;align-items:center;gap:4px;margin-left:auto}
+.nav-links a{
+  font-weight:700;font-size:.94rem;color:#3a4770;padding:9px 12px;border-radius:999px;transition:background .18s,color .18s;
+}
+.nav-links a:hover{background:var(--tint-blue);color:var(--navy)}
+.nav-cta{margin-left:10px;padding:11px 18px;font-size:.92rem}
+.burger{display:none;margin-left:auto;background:#fff;border:1px solid var(--line);border-radius:13px;width:46px;height:44px;cursor:pointer;font-size:1.2rem;color:var(--navy)}
+.mobile-menu{display:none;padding:8px 22px 20px;border-top:1px solid var(--line);background:#fff}
+.mobile-menu.open{display:block}
+.mobile-menu a{display:block;padding:13px 6px;font-weight:800;color:var(--navy-2);border-bottom:1px dashed var(--line)}
+@media (max-width:1040px){
+  .nav-links{display:none}
+  .burger{display:block}
+  .nav-cta{display:none}
+}
+/* ---------- FLOATING WHATSAPP ---------- */
+.fab{
+  position:fixed;right:20px;bottom:20px;z-index:90;display:inline-flex;align-items:center;gap:10px;
+  background:linear-gradient(135deg,#57b947,#2fa84f);color:#fff;font-weight:800;padding:14px 20px;border-radius:999px;
+  box-shadow:0 14px 34px rgba(47,168,79,.42);animation:bob 3.2s ease-in-out infinite;
+}
+.fab:hover{transform:translateY(-3px) scale(1.02)}
+.fab .dot{width:10px;height:10px;border-radius:50%;background:#fff;opacity:.9}
+@media (max-width:640px){.fab{right:14px;bottom:14px;padding:13px 16px;font-size:.9rem}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+/* ---------- REVEAL ---------- */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.fab{animation:none}.float{animation:none}.hero-circuit path{animation:none}}
+/* ---------- HERO ---------- */
+.hero{
+  overflow:hidden;
+  background:
+    radial-gradient(900px 460px at 12% -10%, #eaf1ff 0%, rgba(234,241,255,0) 62%),
+    radial-gradient(760px 420px at 96% 4%, #fff5e6 0%, rgba(255,245,230,0) 60%),
+    radial-gradient(700px 400px at 70% 100%, #eefaf0 0%, rgba(238,250,240,0) 62%),
+    #fff;
+  padding-top:clamp(34px,4.6vw,60px);
+  padding-bottom:clamp(46px,6vw,80px);
+}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:clamp(26px,4vw,56px);align-items:center}
+.hero h1{font-size:clamp(2.15rem,5.2vw,4.05rem);font-weight:800;margin:18px 0 0;color:var(--navy)}
+.hero h1 .hl{position:relative;display:inline-block;color:var(--green);white-space:nowrap}
+.hero h1 .hl:after{
+  content:"";position:absolute;left:-2px;right:-2px;bottom:.06em;height:.24em;border-radius:999px;
+  background:linear-gradient(90deg,rgba(255,207,51,.85),rgba(255,207,51,.35));z-index:-1;
+}
+.hero-sub{margin-top:18px;font-size:clamp(1.02rem,1.35vw,1.14rem);color:#42507c;font-weight:600;max-width:610px}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:13px;margin-top:28px}
+.hero-badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.hero-badges .pill{background:rgba(255,255,255,.86)}
+.hero-badges .pill span{color:var(--green);font-weight:900}
+.hero-note{margin-top:20px;font-size:.9rem;color:var(--muted);font-weight:700}
+
+/* collage */
+.collage{position:relative;display:flex;justify-content:center;align-items:flex-start;gap:0;padding:16px 4px 34px;min-height:380px}
+.poster{
+  width:31%;max-width:190px;border-radius:18px;overflow:hidden;background:#fff;border:5px solid #fff;
+  box-shadow:var(--shadow-lg);transition:transform .35s cubic-bezier(.2,.7,.3,1),box-shadow .35s ease;
+}
+.poster img{width:100%;height:auto}
+.poster.p1{transform:rotate(-7deg) translateY(26px);z-index:2}
+.poster.p2{transform:rotate(0deg) translateY(-6px) scale(1.09);z-index:3;margin:0 -14px}
+.poster.p3{transform:rotate(7deg) translateY(26px);z-index:2}
+.collage:hover .poster.p1{transform:rotate(-10deg) translateY(20px)}
+.collage:hover .poster.p2{transform:rotate(0deg) translateY(-14px) scale(1.12)}
+.collage:hover .poster.p3{transform:rotate(10deg) translateY(20px)}
+.float{position:absolute;font-size:2.1rem;filter:drop-shadow(0 8px 14px rgba(20,35,90,.18));animation:bob 4s ease-in-out infinite;pointer-events:none}
+.float.f1{top:2%;left:2%;animation-delay:.1s}
+.float.f2{top:36%;right:-2%;animation-delay:.9s}
+.float.f3{bottom:2%;left:22%;animation-delay:1.6s}
+@media (max-width:980px){
+  .hero-grid{grid-template-columns:1fr}
+  .collage{min-height:0;padding-bottom:26px;order:2}
+  .poster{max-width:170px}
+}
+@media (max-width:520px){
+  .collage{gap:0}
+  .poster{width:32%;border-width:4px;border-radius:14px}
+  .float{font-size:1.6rem}
+  .hero-ctas .btn{width:100%}
+  .hero h1 .hl{white-space:normal}
+}
+/* ---------- PROGRAMS ---------- */
+.programs{background:linear-gradient(180deg,#fff 0%,#f7f9ff 100%)}
+.prog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;align-items:stretch}
+.prog-card{display:flex;flex-direction:column;overflow:hidden;border-radius:24px}
+.prog-media{position:relative;height:290px;overflow:hidden;background:#eef2fb}
+.prog-media img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .6s cubic-bezier(.2,.7,.3,1)}
+.prog-card:hover .prog-media img{transform:scale(1.05)}
+.prog-badge{
+  position:absolute;top:14px;left:14px;background:#fff;border-radius:999px;padding:7px 14px;
+  font-weight:900;font-size:.8rem;letter-spacing:.04em;text-transform:uppercase;box-shadow:var(--shadow-sm);
+}
+.prog-badge.kids{color:var(--orange)}
+.prog-badge.teens{color:var(--purple)}
+.prog-badge.adults{color:var(--blue)}
+.prog-body{padding:22px 22px 24px;display:flex;flex-direction:column;flex:1}
+.prog-tagline{font-weight:900;font-size:.85rem;letter-spacing:.09em;text-transform:uppercase;margin-bottom:6px}
+.t-green{color:var(--green)}.t-purple{color:var(--purple)}.t-blue{color:var(--blue)}.t-orange{color:var(--orange)}
+.prog-body h3{margin-bottom:8px;color:var(--navy)}
+.prog-powered{font-size:.82rem;font-weight:800;color:var(--muted);margin:-2px 0 10px}
+.prog-text{font-weight:700;color:#3b4873;margin-bottom:14px}
+.prog-list{list-style:none;padding:0;margin:0 0 16px;display:grid;gap:9px}
+.prog-meta{
+  margin-top:auto;display:inline-flex;align-items:center;gap:8px;background:var(--tint-blue);
+  border:1px dashed #cfdcff;color:var(--navy-2);font-weight:800;font-size:.85rem;padding:10px 14px;border-radius:14px;
+}
+.prog-note{margin-top:10px;font-size:.82rem;font-weight:800;color:var(--orange)}
+.prog-meta-strip{display:grid;gap:8px;margin:0 0 16px}
+.prog-meta-strip div{
+  display:flex;gap:9px;align-items:flex-start;background:var(--tint-yellow);border:1px solid #f6e6b0;
+  border-radius:14px;padding:10px 13px;font-weight:700;font-size:.88rem;color:#5c4a12;
+}
+.prog-link{
+  margin-top:auto;display:flex;align-items:center;justify-content:center;gap:9px;
+  background:linear-gradient(135deg,#57b947,#2fa84f);color:#fff;font-weight:900;
+  padding:14px 18px;border-radius:999px;box-shadow:0 10px 22px rgba(47,168,79,.3);transition:transform .18s,box-shadow .18s;
+}
+.prog-link:hover{transform:translateY(-3px);box-shadow:0 16px 30px rgba(47,168,79,.38)}
+@media (max-width:980px){.prog-grid{grid-template-columns:1fr;max-width:560px;margin:0 auto}.prog-media{height:260px}}
+/* ---------- WHY ---------- */
+.why{background:var(--navy);color:#fff;overflow:hidden}
+.why:before{
+  content:"";position:absolute;inset:0;opacity:.5;
+  background:
+    radial-gradient(560px 320px at 8% 0%, rgba(31,111,208,.5) 0%, rgba(31,111,208,0) 62%),
+    radial-gradient(520px 320px at 92% 100%, rgba(106,63,160,.5) 0%, rgba(106,63,160,0) 62%);
+}
+.why .wrap{position:relative}
+.why .sec-head h2{color:#fff}
+.why .sec-head p{color:#c3cdee}
+.why .eyebrow{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.22);color:#fff}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.why-card{
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:20px;padding:24px 22px;
+  transition:transform .22s ease,background .22s ease,border-color .22s ease;
+}
+.why-card:hover{transform:translateY(-6px);background:rgba(255,255,255,.13);border-color:rgba(255,255,255,.3)}
+.why-ico{
+  width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-size:1.5rem;margin-bottom:14px;
+  background:rgba(255,255,255,.14);
+}
+.why-card h3{font-size:1.22rem;margin-bottom:8px}
+.why-card p{color:#ccd6f5;font-size:.97rem;font-weight:600}
+@media (max-width:980px){.why-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:620px){.why-grid{grid-template-columns:1fr}}
+/* ---------- CURRICULUM ---------- */
+.curr{background:#fff}
+.track-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.track{border-radius:24px;overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-sm);transition:transform .22s,box-shadow .22s}
+.track:hover{transform:translateY(-6px);box-shadow:var(--shadow-md)}
+.track-head{padding:22px 24px;color:#fff}
+.track-head h3{font-size:1.4rem;margin-bottom:6px}
+.track-head p{font-weight:800;font-size:.88rem;opacity:.95;letter-spacing:.03em}
+.track-head.scratch{background:linear-gradient(135deg,#f7a03a,#f07c2b)}
+.track-head.inventor{background:linear-gradient(135deg,#7a4fb5,#6a3fa0)}
+.track-body{padding:22px 24px 24px;display:flex;flex-direction:column;gap:18px}
+.step{display:flex;gap:14px}
+.step-no{
+  flex:0 0 38px;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;
+  font-family:'Baloo 2',sans-serif;font-weight:800;font-size:1.05rem;
+}
+.scratch-no{background:var(--tint-orange);color:var(--orange);border:1px solid #ffdcc0}
+.inventor-no{background:var(--tint-purple);color:var(--purple);border:1px solid #e3d5f8}
+.step h4{font-family:'Baloo 2',sans-serif;font-size:1.1rem;font-weight:700;color:var(--navy);margin:2px 0 4px}
+.step p{color:#4b587e;font-weight:600;font-size:.96rem}
+.build{
+  display:inline-flex;align-items:center;gap:7px;margin-top:8px;background:var(--tint-green);border:1px solid #cdeed6;
+  color:#1f7a38;font-weight:800;font-size:.83rem;padding:6px 12px;border-radius:999px;
+}
+.track-note{
+  margin-top:2px;background:var(--tint-blue);border:1px dashed #cfdcff;border-radius:16px;padding:14px 16px;
+  font-weight:700;font-size:.9rem;color:var(--navy-2);
+}
+@media (max-width:900px){.track-grid{grid-template-columns:1fr}}
+/* ---------- PROJECTS ---------- */
+.projects{background:linear-gradient(180deg,#f7f9ff 0%,#fff 100%)}
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.proj-col{border-radius:24px;padding:26px 24px 28px;border:1px solid var(--line);background:#fff;box-shadow:var(--shadow-sm);transition:transform .22s,box-shadow .22s}
+.proj-col:hover{transform:translateY(-6px);box-shadow:var(--shadow-md)}
+.proj-col h3{display:flex;align-items:center;gap:11px;color:var(--navy);margin-bottom:16px;font-size:1.3rem}
+.proj-col h3 .ico{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:1.3rem;flex:0 0 44px}
+.proj-col.a{background:linear-gradient(180deg,var(--tint-orange) 0%,#fff 46%)}
+.proj-col.a .ico{background:#fff;border:1px solid #ffdcc0}
+.proj-col.b{background:linear-gradient(180deg,var(--tint-purple) 0%,#fff 46%)}
+.proj-col.b .ico{background:#fff;border:1px solid #e3d5f8}
+.proj-list{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:10px}
+.proj-list li{
+  background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 15px;font-weight:700;font-size:.92rem;color:#3a4770;
+  transition:transform .18s,box-shadow .18s,border-color .18s;
+}
+.proj-list li:hover{transform:translateY(-3px);box-shadow:var(--shadow-sm);border-color:#cfd9f2}
+@media (max-width:860px){.proj-grid{grid-template-columns:1fr}}
+
+/* ---------- FOR SCHOOLS ---------- */
+.schools{background:#fff}
+.school-card{
+  border-radius:28px;padding:clamp(24px,3.4vw,44px);border:1px solid var(--line);background:#fff;
+  box-shadow:var(--shadow-md);position:relative;overflow:hidden;
+}
+.school-card:before{
+  content:"";position:absolute;top:-90px;right:-90px;width:260px;height:260px;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%, #eaf1ff, rgba(234,241,255,0));
+}
+.school-head{position:relative;text-align:center;max-width:720px;margin:0 auto 30px}
+.school-head h2{margin:16px 0 12px;color:var(--navy)}
+.school-head p{color:var(--muted);font-weight:600;font-size:1.06rem}
+.cmp-grid{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.cmp{border-radius:20px;padding:22px 22px 24px;border:1px solid var(--line)}
+.cmp.yes{background:var(--tint-green);border-color:#cdeed6}
+.cmp.no{background:#fff7f4;border-color:#ffdccb}
+.cmp h3{display:flex;align-items:center;gap:10px;font-size:1.15rem;margin-bottom:14px}
+.cmp.yes h3{color:#1f7a38}
+.cmp.no h3{color:#c2551c}
+.cmp ul{list-style:none;padding:0;margin:0;display:grid;gap:11px}
+.cmp li{display:flex;gap:10px;align-items:flex-start;font-weight:700;color:#31406b;font-size:.97rem}
+.cmp li .mk{flex:0 0 22px;font-weight:900}
+.cmp.yes .mk{color:var(--green)}
+.cmp.no .mk{color:var(--orange)}
+.school-cta{
+  position:relative;margin-top:28px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:center;
+  text-align:center;background:var(--navy);border-radius:20px;padding:24px 26px;color:#fff;
+}
+.school-cta p{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(1.1rem,2vw,1.45rem);color:#fff}
+.school-flyer{margin-top:26px;display:grid;grid-template-columns:.85fr 1.15fr;gap:26px;align-items:center}
+.school-flyer img{border-radius:18px;box-shadow:var(--shadow-md);border:5px solid #fff;max-height:420px;object-fit:cover;object-position:top;margin:0 auto}
+.school-flyer ul{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+@media (max-width:860px){.cmp-grid{grid-template-columns:1fr}.school-flyer{grid-template-columns:1fr}}
+/* ---------- ABOUT ---------- */
+.about{background:linear-gradient(180deg,#fff 0%,#f7f9ff 100%)}
+.about-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(24px,3.6vw,52px);align-items:center}
+.about-visual{
+  border-radius:26px;padding:30px 24px;text-align:center;color:#fff;position:relative;overflow:hidden;
+  background:linear-gradient(150deg,var(--navy) 0%,var(--navy-2) 55%,#3b2a72 100%);box-shadow:var(--shadow-lg);
+}
+.about-visual:before{
+  content:"";position:absolute;inset:auto -40px -70px auto;width:220px;height:220px;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%, rgba(255,207,51,.35), rgba(255,207,51,0));
+}
+.avatar{
+  width:110px;height:110px;border-radius:50%;margin:0 auto 16px;display:grid;place-items:center;
+  font-family:'Baloo 2',sans-serif;font-size:2.3rem;font-weight:800;color:var(--navy);
+  background:linear-gradient(140deg,var(--yellow),var(--orange));box-shadow:0 16px 34px rgba(240,124,43,.35);
+}
+.about-visual h3{font-size:1.5rem;margin-bottom:4px}
+.about-visual p{color:#c3cdee;font-weight:700;font-size:.94rem}
+.about-visual .mini{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:18px}
+.about-visual .mini span{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:7px 13px;font-size:.8rem;font-weight:800}
+.about-body h2{margin:14px 0 16px;color:var(--navy)}
+.about-body p.bio{color:#3f4c76;font-weight:600;font-size:1.06rem}
+.stat-chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.stat-chips .chip{
+  display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:999px;
+  padding:10px 16px;font-weight:800;font-size:.88rem;color:var(--navy-2);box-shadow:var(--shadow-sm);
+  transition:transform .18s,box-shadow .18s;
+}
+.stat-chips .chip:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+@media (max-width:900px){.about-grid{grid-template-columns:1fr}}
+
+/* ---------- CONTACT / FOOTER ---------- */
+.contact{background:var(--navy);color:#fff;overflow:hidden}
+.contact:before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(620px 340px at 12% 6%, rgba(31,111,208,.45), rgba(31,111,208,0) 62%),
+    radial-gradient(560px 320px at 88% 90%, rgba(47,168,79,.35), rgba(47,168,79,0) 62%);
+}
+.contact .wrap{position:relative}
+.contact-inner{text-align:center;max-width:900px;margin:0 auto}
+.contact h2{color:#fff;font-size:clamp(2rem,4.4vw,3.2rem);margin:16px 0 14px}
+.contact-sub{color:#c3cdee;font-weight:700;font-size:1.08rem}
+.phone-big{
+  display:block;font-family:'Baloo 2',sans-serif;font-weight:800;color:var(--yellow);
+  font-size:clamp(2.4rem,8vw,5.4rem);line-height:1;letter-spacing:-.02em;margin:24px 0 6px;text-shadow:0 12px 30px rgba(0,0,0,.25);
+}
+.contact-actions{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:26px}
+.contact-actions .btn-outline{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
+.contact-actions .btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+.contact-badges{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:32px}
+.contact-badges span{
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:999px;
+  padding:8px 15px;font-weight:800;font-size:.85rem;
+}
+.foot{
+  margin-top:44px;padding-top:24px;border-top:1px solid rgba(255,255,255,.16);
+  display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center;
+}
+.foot p{color:#aebae4;font-weight:700;font-size:.9rem}
+.foot .links{display:flex;flex-wrap:wrap;gap:18px}
+.foot .links a{color:#dbe2f8;font-weight:800;font-size:.9rem}
+.foot .links a:hover{color:var(--yellow)}
+.hero-circuit{position:absolute;inset:0;pointer-events:none;opacity:.55;overflow:hidden}
+.hero-circuit svg{position:absolute;top:6%;right:2%;width:min(460px,44vw);height:auto}
+.hero-circuit path{fill:none;stroke:url(#cg);stroke-width:2.4;stroke-linecap:round;stroke-dasharray:10 12;animation:dash 14s linear infinite}
+.hero-circuit circle{fill:#fff;stroke:var(--blue);stroke-width:2.4}
+@keyframes dash{to{stroke-dashoffset:-260}}
+@media (max-width:980px){.hero-circuit{opacity:.35}.hero-circuit svg{width:70vw;top:auto;bottom:-4%;right:-8%}}
+/* SECTION_STYLES */
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand">
+      <span class="logo">🤖</span>
+      <span>Anusha Prahalad<small>Coding &amp; AI Classes</small></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#programs">Programs</a>
+      <a href="#why">Why It Matters</a>
+      <a href="#curriculum">Curriculum</a>
+      <a href="#projects">Projects</a>
+      <a href="#schools">For Schools</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a class="btn btn-green nav-cta" href="https://wa.me/919600915016" target="_blank" rel="noopener noreferrer">WhatsApp: 96009 15016</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#programs">Programs</a>
+    <a href="#why">Why It Matters</a>
+    <a href="#curriculum">Curriculum</a>
+    <a href="#projects">Projects</a>
+    <a href="#schools">For Schools</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <a href="https://wa.me/919600915016" target="_blank" rel="noopener noreferrer">WhatsApp: 96009 15016</a>
+  </div>
+</header>
+
+<main id="top">
+  <!-- ================= HERO ================= -->
+  <section class="sec hero">
+    <div class="hero-circuit" aria-hidden="true">
+      <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="cg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#1f6fd0"/>
+            <stop offset="50%" stop-color="#6a3fa0"/>
+            <stop offset="100%" stop-color="#2fa84f"/>
+          </linearGradient>
+        </defs>
+        <path d="M10 250 H90 V180 H170 V110 H250 V40 H340"/>
+        <path d="M10 120 H60 V60 H150 V20"/>
+        <circle cx="340" cy="40" r="6"/>
+        <circle cx="150" cy="20" r="6"/>
+        <circle cx="90" cy="250" r="6"/>
+      </svg>
+    </div>
+    <div class="wrap hero-grid">
+      <div class="hero-copy reveal">
+        <span class="eyebrow">✨ Anusha Prahalad • Coding &amp; AI Classes</span>
+        <h1>Coding for Kids. <span class="hl">AI for Everyone.</span></h1>
+        <p class="hero-sub">Fun, structured programmes teaching real tools used worldwide — for children ages 8–12, and for adults &amp; senior citizens who want to make life easier, faster &amp; smarter with AI.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-green" href="https://wa.me/919600915016" target="_blank" rel="noopener noreferrer">💬 Chat on WhatsApp — 96009 15016</a>
+          <a class="btn btn-outline" href="mailto:anushaprahalad@gmail.com">✉️ Email Anusha</a>
+        </div>
+        <div class="hero-badges">
+          <span class="pill"><span>✔</span> Safe &amp; Secure</span>
+          <span class="pill"><span>✔</span> Practical Examples</span>
+          <span class="pill"><span>✔</span> Supportive Guidance</span>
+          <span class="pill"><span>✔</span> No Prior Experience Needed</span>
+        </div>
+        <p class="hero-note">Online classes • Kids 8+ • Adults &amp; Senior Citizens welcome</p>
+      </div>
+
+      <div class="collage reveal">
+        <span class="float f1">🚀</span>
+        <span class="float f2">🧩</span>
+        <span class="float f3">🤖</span>
+        <div class="poster p1">
+          <img src="https://cdn.youmindassets.com/user-files/020028064b0a3cdf7a4edc97e1babddb1ca0c7e47803ec779da66fa8f0e4c23e?width=4000&height=4000&fit=scale-down&format=webp&quality=80" alt="Learn Scratch poster — coding for kids ages 8 and above" loading="eager">
+        </div>
+        <div class="poster p2">
+          <img src="https://cdn.youmindassets.com/user-files/52e228b26fff09efa1358ba5d6fcc821b393db623f543f20ce2d5cf3e144b840?width=4000&height=4000&fit=scale-down&format=webp&quality=80" alt="Learn to Create Android Apps poster — MIT App Inventor for kids 10 and above" loading="eager">
+        </div>
+        <div class="poster p3">
+          <img src="https://cdn.youmindassets.com/user-files/b7ac89f9e1300c1986adefaac5230b2c44db050238493a0570370240812dd562?width=4000&height=4000&fit=scale-down&format=webp&quality=80" alt="Learn to Use AI in Everyday Life poster — for adults and senior citizens" loading="eager">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROGRAMS ================= -->
+  <section class="sec programs" id="programs">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Our Programmes</span>
+        <h2>Pick the class that fits your family</h2>
+        <p>Three friendly, structured courses — real tools, real projects, and plenty of encouragement.</p>
+      </div>
+
+      <div class="prog-grid">
+        <!-- Card A -->
+        <article class="card prog-card reveal">
+          <div class="prog-media">
+            <img src="https://cdn.youmindassets.com/user-files/020028064b0a3cdf7a4edc97e1babddb1ca0c7e47803ec779da66fa8f0e4c23e?width=4000&height=4000&fit=scale-down&format=webp&quality=80" alt="Learn Scratch poster" loading="lazy">
+            <span class="prog-badge kids">8+ Kids</span>
+          </div>
+          <div class="prog-body">
+            <p class="prog-tagline t-orange">Code • Create • Play</p>
+            <h3>Learn Scratch</h3>
+            <p class="prog-text">Create your own games &amp; animations!</p>
+            <ul class="prog-list">
+              <li class="check"><span class="tick">✔</span> Improve logical thinking</li>
+              <li class="check"><span class="tick">✔</span> Boost creativity</li>
+              <li class="check"><span class="tick">✔</span> Solve problems step by step</li>
+              <li class="check"><span class="tick">✔</span> Build confidence &amp; have fun!</li>
+            </ul>
+            <span class="prog-meta">📅 Ages 8 and above • 3 months</span>
+            <a class="prog-link" href="https://wa.me/919600915016" target="_blank" rel="noopener noreferrer" style="margin-top:16px">Register on WhatsApp</a>
+          </div>
+        </article>
+
+        <!-- Card B -->
+        <article class="card prog-card reveal">
+          <div class="prog-media">
+            <img src="https://cdn.youmindassets.com/user-files/52e228b26fff09efa1358ba5d6fcc821b393db623f543f20ce2d5cf3e144b840?width=4000&height=4000&fit=scale-down&format=webp&quality=80" alt="Learn to Create Android Apps poster" loading="lazy">
+            <span class="prog-badge teens">10+ Kids</span>
+          </div>
+          <div class="prog-body">
+            <p class="prog-tagline t-purple">Ideate • Design • Build • Share</p>
+            <h3>Learn to Create Android Apps</h3>
+            <p class="prog-powered">Powered by MIT App Inventor</p>
+            <p class="prog-text">Turn your ideas into real Android apps!</p>
+            <ul class="prog-list">
+              <li class="check"><span class="tick">✔</span> Learn by doing — hands-on projects</li>
+              <li class="check"><span class="tick">✔</span> Create your own apps (games, quizzes, utilities)</li>
+              <li class="check"><span class="tick">✔</span> No prior coding experience needed</li>
+              <li class="check"><span class="tick">✔</span> Boost creativity &amp; problem-solving skills</li>
+            </ul>
+            <span class="prog-meta">📅 Ages 10 and above • 3 months</span>
+            <p class="prog-note">⚡ Limited seats — enroll today!</p>
+            <a class="prog-link" href="https://wa.me/919600915016" target="_blank" rel="noopener noreferrer" style="margin-top:16px">Register on WhatsApp</a>
+          </div>
+        </article>
+
+        <!-- Card C -->
+        <article class="card prog-card reveal">
+          <div class="prog-media">
+            <img src="https://cdn.youmindassets.com/user-files/b7ac89f9e1300c1986adefaac5230b2c44db050238493a0570370240812dd562?width=4000&height=4000&fit=scale-down&format=webp&quality=80" alt="Learn to Use AI in Everyday Life poster" loading="lazy">
+            <span class="prog-badge adults">Adults &amp; Senior Citizens</span>
+          </div>
+          <div class="prog-body">
+            <p class="prog-tagline t-blue">Make life easier, faster &amp; smarter with AI!</p>
+            <h3>Learn to Use AI in Everyday Life</h3>
+            <ul class="prog-list">
+              <li class="check"><span class="tick">✔</span> Get answers instantly</li>
+              <li class="check"><span class="tick">✔</span> Write emails, messages &amp; documents easily</li>
+              <li class="check"><span class="tick">✔</span> Plan your day, travel &amp; events better</li>
+              <li class="check"><span class="tick">✔</span> Learn, explore &amp; stay connected with confidence</li>
+            </ul>
+            <div class="prog-meta-strip">
+              <div><span>💡</span> No tech experience needed — we start from the basics!</div>
+              <div><span>🐢</span> Practical &amp; easy to learn — step by step, at your pace!</div>
+              <div><span>⚙️</span> Useful tools for daily life — work smarter, not harder!</div>
+            </div>
+            <a class="prog-link" href="https://wa.me/919600915016" target="_blank" rel="noopener noreferrer">Register on WhatsApp</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHY IT MATTERS ================= -->
+  <section class="sec why" id="why">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Why It Matters</span>
+        <h2>The importance of coding for children</h2>
+        <p>Six skills that stay with a child for life — long after the last class ends.</p>
+      </div>
+      <div class="why-grid">
+        <article class="why-card reveal">
+          <div class="why-ico">🧠</div>
+          <h3>Logical Thinking</h3>
+          <p>Children learn to break big problems into small steps — a skill that helps in maths, science &amp; life.</p>
+        </article>
+        <article class="why-card reveal">
+          <div class="why-ico">🎨</div>
+          <h3>Creativity</h3>
+          <p>Every project is the child's own idea and design. Coding becomes a tool for self-expression.</p>
+        </article>
+        <article class="why-card reveal">
+          <div class="why-ico">💪</div>
+          <h3>Resilience</h3>
+          <p>When code doesn't work, children learn to fix it calmly — building patience and a never-give-up attitude.</p>
+        </article>
+        <article class="why-card reveal">
+          <div class="why-ico">🚀</div>
+          <h3>Future Readiness</h3>
+          <p>Coding is the #1 skill for the next generation. Starting at 8 gives children a huge head start.</p>
+        </article>
+        <article class="why-card reveal">
+          <div class="why-ico">🤝</div>
+          <h3>Teamwork</h3>
+          <p>Kids share ideas, give feedback, and help each other — just like in a real workplace.</p>
+        </article>
+        <article class="why-card reveal">
+          <div class="why-ico">⭐</div>
+          <h3>Confidence</h3>
+          <p>Children present their projects to peers and parents — improves public speaking.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CURRICULUM ================= -->
+  <section class="sec curr" id="curriculum">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Curriculum</span>
+        <h2>What children learn</h2>
+        <p>Two clear tracks, three guided milestones each — every milestone ends with something the child has built.</p>
+      </div>
+
+      <div class="track-grid">
+        <!-- Track 1 -->
+        <article class="track reveal">
+          <div class="track-head scratch">
+            <h3>Scratch</h3>
+            <p>Ages 8 and above • 3 months</p>
+          </div>
+          <div class="track-body">
+            <div class="step">
+              <div class="step-no scratch-no">1</div>
+              <div>
+                <h4>Animated Story</h4>
+                <p>Characters, dialogue, backgrounds &amp; sound effects.</p>
+                <span class="build">🧱 Build: Animated short story</span>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-no scratch-no">2</div>
+              <div>
+                <h4>Game Design</h4>
+                <p>Controls, score, lives &amp; game-over screen.</p>
+                <span class="build">🧱 Build: Playable game</span>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-no scratch-no">3</div>
+              <div>
+                <h4>Interactive Quiz</h4>
+                <p>Questions, timer, score &amp; results — on any topic.</p>
+                <span class="build">🧱 Build: Custom topic quiz</span>
+              </div>
+            </div>
+            <p class="track-note">💡 No prior coding needed — drag-and-drop blocks, like puzzle pieces.</p>
+          </div>
+        </article>
+
+        <!-- Track 2 -->
+        <article class="track reveal">
+          <div class="track-head inventor">
+            <h3>MIT App Inventor</h3>
+            <p>Ages 10 and above • 3 months</p>
+          </div>
+          <div class="track-body">
+            <div class="step">
+              <div class="step-no inventor-no">1</div>
+              <div>
+                <h4>App Basics</h4>
+                <p>Buttons, screens, text &amp; how apps work.</p>
+                <span class="build">🧱 Build: Simple app</span>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-no inventor-no">2</div>
+              <div>
+                <h4>Real App Features</h4>
+                <p>Sound, camera, GPS &amp; storing data.</p>
+                <span class="build">🧱 Build: Quiz or sound app</span>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-no inventor-no">3</div>
+              <div>
+                <h4>Solve a Real Problem</h4>
+                <p>Design an app that helps someone in daily life.</p>
+                <span class="build">🧱 Build: Installable Android app</span>
+              </div>
+            </div>
+            <p class="track-note">📱 Child installs the app on their real phone — parents can see &amp; use the app their child built.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROJECTS ================= -->
+  <section class="sec projects" id="projects">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Student Work</span>
+        <h2>Sample projects by students</h2>
+        <p>Real projects built by real children — from first animations to installable Android apps.</p>
+      </div>
+      <div class="proj-grid">
+        <article class="proj-col a reveal">
+          <h3><span class="ico">🐱</span> Projects in Scratch</h3>
+          <ul class="proj-list">
+            <li>Ping Pong</li>
+            <li>Catch the crystals</li>
+            <li>Animated Story</li>
+            <li>Baseball game</li>
+            <li>Quiz</li>
+            <li>Move the Cursor &amp; Catch</li>
+          </ul>
+        </article>
+        <article class="proj-col b reveal">
+          <h3><span class="ico">📱</span> Projects in App Inventor</h3>
+          <ul class="proj-list">
+            <li>MultiScreen Find Area</li>
+            <li>Space Invaders game</li>
+            <li>Flash Revision</li>
+            <li>Digital Doodle</li>
+            <li>Secret Diary</li>
+            <li>Locate My Car</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOR SCHOOLS ================= -->
+  <section class="sec schools" id="schools">
+    <div class="wrap">
+      <div class="school-card reveal">
+        <div class="school-head">
+          <span class="eyebrow">For Schools</span>
+          <h2>Coding Programme for Ages 8 – 12</h2>
+          <p>A fun, structured coding programme for students — teaching real tools used worldwide.</p>
+        </div>
+
+        <div class="cmp-grid">
+          <div class="cmp yes">
+            <h3>🏫 What the school provides</h3>
+            <ul>
+              <li><span class="mk">✔</span> Computer lab — 2 afternoons/week</li>
+              <li><span class="mk">✔</span> Internet connection (basic broadband)</li>
+              <li><span class="mk">✔</span> A staff member present for safety</li>
+            </ul>
+          </div>
+          <div class="cmp no">
+            <h3>🙌 What the school does NOT need</h3>
+            <ul>
+              <li><span class="mk">✕</span> No coding teacher or knowledge needed</li>
+              <li><span class="mk">✕</span> No software installation required</li>
+              <li><span class="mk">✕</span> No curriculum planning or materials</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="school-cta">
+          <p>Bring this programme to your school — WhatsApp 96009 15016</p>
+          <a class="btn btn-green" href="https://wa.me/919600915016" target="_blank" rel="noopener noreferrer">💬 WhatsApp 96009 15016</a>
+        </div>
+
+        <div class="school-flyer">
+          <img src="https://cdn.youmindassets.com/user-files/4b23ef2ef35b210fd0adb25eaaaceb5ac79d16e02bd322c166e7ef545ad6e54e?width=4000&height=4000&fit=scale-down&format=webp&quality=80" alt="After School Coding Club flyer for ages 8 to 12" loading="lazy">
+          <ul>
+            <li class="check"><span class="tick">✔</span> Fully planned curriculum — Scratch &amp; MIT App Inventor</li>
+            <li class="check"><span class="tick">✔</span> Conducted by an experienced MCA-qualified teacher</li>
+            <li class="check"><span class="tick">✔</span> Zero preparation or extra workload for school staff</li>
+            <li class="check"><span class="tick">✔</span> Students finish with games, animations &amp; real Android apps</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section class="sec about" id="about">
+    <div class="wrap about-grid">
+      <div class="about-visual reveal">
+        <div class="avatar">AP</div>
+        <h3>Anusha Prahalad</h3>
+        <p>MCA • Coding &amp; AI Teacher</p>
+        <div class="mini">
+          <span>👩‍🏫 Kids Coding</span>
+          <span>🤖 AI for Adults</span>
+          <span>🌍 Online Classes</span>
+        </div>
+      </div>
+      <div class="about-body reveal">
+        <span class="eyebrow">About</span>
+        <h2>About Me</h2>
+        <p class="bio">I hold an MCA degree and began my career in the software industry before transitioning into teaching. I spent two years with WhiteHat Jr, teaching coding to children across India, the US, Canada, and Australia. I currently run my own online coding classes for children, combining a strong technical foundation with hands-on experience in teaching and engaging young learners.</p>
+        <div class="stat-chips">
+          <span class="chip">🎓 MCA Degree</span>
+          <span class="chip">💼 Ex-WhiteHat Jr</span>
+          <span class="chip">🌏 Taught in India, US, Canada &amp; Australia</span>
+          <span class="chip">💻 Online &amp; In-School</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+  <!-- ================= CONTACT / FOOTER ================= -->
+  <footer class="sec contact" id="contact">
+    <div class="wrap contact-inner">
+      <span class="eyebrow reveal">Contact</span>
+      <h2 class="reveal">Join Today! Empower your life with AI.</h2>
+      <p class="contact-sub reveal">WhatsApp to register now!</p>
+      <a class="phone-big reveal" href="tel:+919600915016">96009 15016</a>
+      <div class="contact-actions reveal">
+        <a class="btn btn-green" href="https://wa.me/919600915016" target="_blank" rel="noopener noreferrer">💬 WhatsApp to register now!</a>
+        <a class="btn btn-outline" href="mailto:anushaprahalad@gmail.com">✉️ anushaprahalad@gmail.com</a>
+      </div>
+      <div class="contact-badges reveal">
+        <span>✔ Safe &amp; Secure</span>
+        <span>✔ Practical Examples</span>
+        <span>✔ Supportive Guidance</span>
+        <span>✔ No Prior Experience Needed</span>
+      </div>
+      <div class="foot">
+        <p>Anusha Prahalad — Coding &amp; AI Classes</p>
+        <div class="links">
+          <a href="#programs">Programs</a>
+          <a href="#curriculum">Curriculum</a>
+          <a href="#schools">For Schools</a>
+          <a href="#about">About</a>
+          <a href="#top">Back to top ↑</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+<a class="fab" href="https://wa.me/919600915016" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+  <span>💬</span><span>WhatsApp 96009 15016</span>
+</a>
+
+<script>
+(function(){
+  "use strict";
+  var nav = document.getElementById('nav');
+  var burger = document.getElementById('burger');
+  var menu = document.getElementById('mobileMenu');
+
+  function onScroll(){ nav.classList.toggle('scrolled', window.scrollY > 8); }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  burger.addEventListener('click', function(){
+    var open = menu.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.textContent = open ? '✕' : '☰';
+  });
+  menu.addEventListener('click', function(e){
+    if(e.target.tagName === 'A'){ menu.classList.remove('open'); burger.textContent='☰'; burger.setAttribute('aria-expanded','false'); }
+  });
+
+  // scroll reveal
+  var observer = null;
+  try{
+    observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); observer.unobserve(en.target); }
+      });
+    }, {rootMargin:'0px 0px -8% 0px', threshold:0.08});
+  }catch(err){ observer = null; }
+
+  window.revealInit = function(scope){
+    var nodes = (scope || document).querySelectorAll('.reveal:not(.in)');
+    if(!observer){ nodes.forEach(function(n){ n.classList.add('in'); }); return; }
+    nodes.forEach(function(n){ observer.observe(n); });
+  };
+  window.revealInit();
+})();
+</script>
+</body>
+</html>
